@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  @yield('head')
-  
+  <title>Todo App Demo</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  
   
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -17,8 +16,32 @@
 </head>
 <body>
 
-  @yield('body')
+<nav class="navbar navbar-expand-lg bg-body-secondary">
+  <div class="container-fluid">
+    <a href="{{route('index')}}" class="navbar-brand">Todo-list</a>
+    <div>
+      <div class="navbar-nav">
+      <a href="{{route('index')}}" class="navbar-link">Todas as tarefas</a>
+      <a href="{{route('create')}}" class="nav-link">Criar tarefa</a>
+        @auth
+          <form action="{{route('logout')}}" method="POST">
+            @csrf
+              <a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();this.closest('form').submit();"> Sair</a>
+          </form>
+        @endauth
+        @guest
+          <a href="{{route('login')}}" class="nav-link">Entrar</a>
+          <a href="{{route('register')}}" class="nav-link">Registrar-se</a>
+        @endguest
+      </div>
+    </div>
+  </div>
+</nav>
 
+  <div class="container">
+    @yield('body')
+  </div>
+  
 
 
 

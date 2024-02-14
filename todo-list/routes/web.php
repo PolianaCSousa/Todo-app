@@ -29,3 +29,8 @@ Route::middleware([
 Route::get('/inicio', function () {
     return view('inicio');
 })->name('inicio');
+
+
+Route::get('/create', function () {
+    return view('tasks.create');
+})->name('create');

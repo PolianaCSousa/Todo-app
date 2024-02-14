@@ -2,7 +2,9 @@
 
 @section('body')
 
-<a href="{{route('login')}}">Login</a>
-<a href="{{route('register')}}">Registrar-se</a>
+<div class="container">
+  <p class="h1">Bem vindo ao Todo-list!</p>
+</div>
+
 
 @endsection
