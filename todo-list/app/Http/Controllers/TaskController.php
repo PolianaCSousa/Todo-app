@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -27,8 +30,22 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        return request()->all();
+        //return request()->all();
+        try{
+            DB::beginTransaction();
+
+            $task = new Task();
+            $task->descricao = $request->descricao;
+            $task->save();
+
+            DB::commit();
+
+        }catch(Exception $e){
+            DB::rollBack();
+        }
+
+        return redirect()->route('tasks.index');
+
     }
 
     /**
