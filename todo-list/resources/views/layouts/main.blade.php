@@ -22,7 +22,7 @@
     <div>
       <div class="navbar-nav">
         @auth
-          <a href="{{route('tasks.index')}}" class="navbar-link">Todas as tarefas</a>
+          <a href="{{route('tasks.index')}}" class="nav-link">Todas as tarefas</a>
           <a href="{{route('tasks.create')}}" class="nav-link">Criar tarefa</a>
           <form action="{{route('logout')}}" method="POST">
             @csrf

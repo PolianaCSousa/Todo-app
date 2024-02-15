@@ -14,7 +14,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('tasks.index');
+        $dados['tasks'] = Task::orderBy('id', 'DESC')->get();
+
+        return view('tasks.index', $dados); 
     }
 
     /**
