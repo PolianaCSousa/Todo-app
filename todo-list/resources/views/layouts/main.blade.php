@@ -18,12 +18,12 @@
 
 <nav class="navbar navbar-expand-lg bg-body-secondary">
   <div class="container-fluid">
-    <a href="{{route('index')}}" class="navbar-brand">Todo-list</a>
+    <a href="{{route('inicio')}}" class="navbar-brand">Todo-list</a>
     <div>
       <div class="navbar-nav">
-      <a href="{{route('index')}}" class="navbar-link">Todas as tarefas</a>
-      <a href="{{route('create')}}" class="nav-link">Criar tarefa</a>
         @auth
+          <a href="{{route('tasks.index')}}" class="navbar-link">Todas as tarefas</a>
+          <a href="{{route('tasks.create')}}" class="nav-link">Criar tarefa</a>
           <form action="{{route('logout')}}" method="POST">
             @csrf
               <a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();this.closest('form').submit();"> Sair</a>

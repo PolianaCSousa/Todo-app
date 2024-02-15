@@ -3,7 +3,7 @@
 @section('body')
 
 <p class="h1">Nova Tarefa</p>
-<form action="#" method="POST">
+<form action="{{route('tasks.store')}}" method="POST">
   @csrf
   <div class="form-group mb-3">
     <label for="descrição">Descrição da Tarefa</label>

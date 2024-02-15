@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,8 @@ Route::get('/inicio', function () {
     return view('inicio');
 })->name('inicio');
 
+Route::resource('/tasks', TaskController::class);
 
-Route::get('/create', function () {
+/*Route::get('/create', function () {
     return view('tasks.create');
-})->name('create');
+})->name('create');*/
