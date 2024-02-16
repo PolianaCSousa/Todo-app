@@ -18,13 +18,23 @@
         <p>{{$task->descricao}}</p>
 
         @if(!$task->isCompleted())
+
           <form action="{{route('tasks.update', $task->id)}}" method="POST">
             @method('PATCH')
             @csrf
 
             <button type="submit" class="btn btn-light">Completar</button>
-          
           </form>
+
+        @else
+        
+          <form action="{{route('tasks.destroy', $task->id)}}" method="POST">
+            @method('DELETE')
+            @csrf
+
+            <button type="submit" class="btn btn-outline-danger">Excluir Tarefa</button>
+          </form>
+
         @endif
 
       </div>
