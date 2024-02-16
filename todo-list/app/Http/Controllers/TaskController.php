@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Exception;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $dados['tasks'] = Task::orderBy('id', 'DESC')->get();
+        //ele ordena os que estao com completed_at, os demais que sao null so pega na ordem que estiverem no bd. Ai depois ele ordena por id em ordem decrescente (exceto os que ja foram ordenados pelo completed_at - logo ordena todos os que não foram completados, que sao os que não foram ordenados antes também)
+        $dados['tasks'] = Task::orderBy('completed_at')->orderBy('id', 'desc')->get();
         //dd($dados);
 
         return view('tasks.index', $dados); 
@@ -78,18 +80,16 @@ class TaskController extends Controller
         try{
             DB::beginTransaction();
 
-            $task = Task::findOrfail($id)->first();
-            $task->completed_at = now();
-            //dd($task->completed_at);
+            $task = Task::findOrFail($id);
+            $task->completed_at = Carbon::now();
             $task->save();
 
             DB::commit();
         }catch(Exception $e){
             DB::rollBack();
-            //dd($e->getMessage);
         }
 
-        return redirect()->route('inicio');
+        return redirect()->route('tasks.index');
     }
 
     /**

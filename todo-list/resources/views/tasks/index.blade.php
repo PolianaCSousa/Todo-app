@@ -8,8 +8,8 @@
 
   @foreach($tasks as $task)
 
-    <div class="card mb-3">
-      <div class="card-body">
+    <div class="card mb-3 @if($task->isCompleted()) border-success @endif">
+      <div class="card-body" >
       
         @if($task->isCompleted())
           <span class="badge text-bg-success">Completada</span>
@@ -17,14 +17,15 @@
 
         <p>{{$task->descricao}}</p>
 
-        <form action="{{route('tasks.update', $task->id)}}" method="POST">
-          @method('PATCH')
-          @csrf
+        @if(!$task->isCompleted())
+          <form action="{{route('tasks.update', $task->id)}}" method="POST">
+            @method('PATCH')
+            @csrf
 
-          @if(!$task->isCompleted())
             <button type="submit" class="btn btn-light">Completar</button>
-          @endif
-        </form>
+          
+          </form>
+        @endif
 
       </div>
     </div>
