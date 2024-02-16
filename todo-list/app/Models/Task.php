@@ -14,4 +14,8 @@ class Task extends Model
     protected $fillable = [
         'descricao',
     ];
+
+    public function isCompleted(){
+        return $this->completed_at !== null;
+    }
 }

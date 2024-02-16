@@ -10,8 +10,22 @@
 
     <div class="card mb-3">
       <div class="card-body">
+      
+        @if($task->isCompleted())
+          <span class="badge text-bg-success">Completada</span>
+        @endif
+
         <p>{{$task->descricao}}</p>
-        <a href="#" class="btn btn-light">Completar</a>
+
+        <form action="{{route('tasks.update', $task->id)}}" method="POST">
+          @method('PATCH')
+          @csrf
+
+          @if(!$task->isCompleted())
+            <button type="submit" class="btn btn-light">Completar</button>
+          @endif
+        </form>
+
       </div>
     </div>
     

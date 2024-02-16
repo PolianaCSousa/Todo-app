@@ -15,6 +15,7 @@ class TaskController extends Controller
     public function index()
     {
         $dados['tasks'] = Task::orderBy('id', 'DESC')->get();
+        //dd($dados);
 
         return view('tasks.index', $dados); 
     }
@@ -71,7 +72,24 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        //dd(request()->all());
+
+        try{
+            DB::beginTransaction();
+
+            $task = Task::findOrfail($id)->first();
+            $task->completed_at = now();
+            //dd($task->completed_at);
+            $task->save();
+
+            DB::commit();
+        }catch(Exception $e){
+            DB::rollBack();
+            //dd($e->getMessage);
+        }
+
+        return redirect()->route('inicio');
     }
 
     /**
