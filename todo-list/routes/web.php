@@ -22,8 +22,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/', function () {
-        return view('tasks.index');
-    })->name('index');
+        return view('inicio');
+    })->name('inicio');
 });
 
 

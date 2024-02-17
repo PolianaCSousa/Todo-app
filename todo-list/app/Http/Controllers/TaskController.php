@@ -17,13 +17,7 @@ class TaskController extends Controller
     {
         //ele ordena os que estao com completed_at, os demais que sao null so pega na ordem que estiverem no bd. Ai depois ele ordena por id em ordem decrescente (exceto os que ja foram ordenados pelo completed_at - logo ordena todos os que não foram completados, que sao os que não foram ordenados antes também)
         $dados['tasks'] = Task::orderBy('completed_at')->orderBy('id', 'desc')->get();
-        dd($dados);
-
-        //$task = Task::findOrFail(7);
-        //$task->restore();
-
-        //dd($task);
-
+    
         return view('tasks.index', $dados); 
     }
 
@@ -41,6 +35,13 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         //return request()->all();
+
+        $request->validate([
+            'descricao' => ['required', 'max:300'],
+        ],[
+            'descricao.required' => 'A descrição é obrigatória.',
+            'descricao.max'      => 'A descrição deve conter no máximo 300 caracteres.']);
+
         try{
             DB::beginTransaction();
 
@@ -56,22 +57,6 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index');
 
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
