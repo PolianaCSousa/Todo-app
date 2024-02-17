@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 
-
 @section('body')
 
   <p class="h1">Todo-list</p>
@@ -27,7 +26,7 @@
           </form>
 
         @else
-        
+
           <form action="{{route('tasks.destroy', $task->id)}}" method="POST">
             @method('DELETE')
             @csrf

@@ -18,7 +18,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-secondary">
   <div class="container-fluid">
-    <a href="{{route('inicio')}}" class="navbar-brand">Todo-list</a>
+    <a href="{{route('home')}}" class="navbar-brand">Todo-list</a>
     <div>
       <div class="navbar-nav">
         @auth

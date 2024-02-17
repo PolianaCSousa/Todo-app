@@ -14,16 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/', function () {
-        return view('inicio');
-    })->name('inicio');
+    Route::get('/', [TaskController::class, 'home'])->name('home');
 });
 
 
@@ -33,6 +29,3 @@ Route::get('/inicio', function () {
 
 Route::resource('/tasks', TaskController::class);
 
-/*Route::get('/create', function () {
-    return view('tasks.create');
-})->name('create');*/

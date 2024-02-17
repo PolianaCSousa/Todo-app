@@ -7,14 +7,22 @@ use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
+    public function home(){
+        $user = Auth::user();
+        $dados['nome']  = $user->name;
+
+        return view('inicio', $dados);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        
         //ele ordena os que estao com completed_at, os demais que sao null so pega na ordem que estiverem no bd. Ai depois ele ordena por id em ordem decrescente (exceto os que ja foram ordenados pelo completed_at - logo ordena todos os que não foram completados, que sao os que não foram ordenados antes também)
         $dados['tasks'] = Task::orderBy('completed_at')->orderBy('id', 'desc')->get();
     
@@ -34,8 +42,6 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //return request()->all();
-
         $request->validate([
             'descricao' => ['required', 'max:300'],
         ],[
@@ -64,8 +70,6 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
-        //dd(request()->all());
 
         try{
             DB::beginTransaction();

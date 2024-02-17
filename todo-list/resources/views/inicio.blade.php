@@ -3,7 +3,12 @@
 @section('body')
 
 <div class="container">
-  <p class="h1">Bem vindo ao Todo-list!</p>
+  @guest 
+    <p class="h1">Bem vindo ao Todo-list!</p>
+  @endguest
+  @auth
+    <p class="h1">{{$nome}}, bem vindo(a) ao Todo-list!</p>
+  @endauth
 </div>
 
 
